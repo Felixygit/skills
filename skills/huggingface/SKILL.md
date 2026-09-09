@@ -57,7 +57,7 @@ Prefer live CLI / docs over recalled API shapes — the Hub surface changes ofte
 | Load a model in Python | `transformers` `pipeline` / `AutoModel*` (see ml-workflows.md) |
 | Recommend the best model for a task | Follow [references/official-skills.md](references/official-skills.md) (`huggingface-best`) or query official leaderboards |
 | Build / debug a Space | `hf spaces …` + Gradio patterns in ml-workflows.md |
-| Install specialized HF skills | `hf skills list` then `hf skills add <name>` |
+| Install / refresh specialized HF skills | `hf skills add <name> --dest skills --force` (see official-skills.md; many are already vendored here) |
 
 ## Hard rules
 
@@ -93,4 +93,9 @@ hf models list --search "instruct" --filter "text-generation" --sort downloads -
 
 ## When to hand off to official Hugging Face skills
 
-This skill covers everyday Hub + library work. For specialized workflows (LLM trainer, vision trainer, ZeroGPU, Trackio, LoRA Space builder, community evals, TRL, sentence-transformers, transformers.js, SageMaker deploy, etc.), install and follow the matching skill from [huggingface/skills](https://github.com/huggingface/skills) — see [references/official-skills.md](references/official-skills.md).
+This skill covers everyday Hub + library work. Specialized marketplace skills
+(`hf-cli`, `huggingface-best`, `huggingface-llm-trainer`, Spaces, Gradio, SageMaker
+helpers, etc.) are already installed under `skills/` via `hf skills add`. When the
+user's task matches one of them, **read that skill's `SKILL.md` next** — see
+[references/official-skills.md](references/official-skills.md). To refresh or add
+more: `hf skills add <name> --dest skills --force`.

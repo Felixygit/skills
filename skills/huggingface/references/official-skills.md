@@ -1,22 +1,36 @@
 # Official Hugging Face agent skills
 
-Specialized workflows live in [huggingface/skills](https://github.com/huggingface/skills). Install them with the Hub CLI rather than reinventing them here.
-
-## Install
+These skills are installed from the Hugging Face marketplace with:
 
 ```bash
-# list available skills
-hf skills list
-
-# install one into the current agent/skills destination
-hf skills add huggingface-best
-hf skills add huggingface-llm-trainer
-
-# refresh installed HF skills
-hf skills update
+hf skills add <name> --dest skills --force
 ```
 
-Claude Code marketplace (bootstrap `hf-cli` only):
+They live next to this skill under `skills/` and are registered in the
+`huggingface-skills` plugin in `.claude-plugin/marketplace.json`.
+
+Upstream source: [huggingface/skills](https://github.com/huggingface/skills) (Apache-2.0).
+See also [`skills/HF_SKILLS_NOTICE.md`](../../HF_SKILLS_NOTICE.md).
+
+## Refresh / install
+
+```bash
+# list marketplace skills
+hf skills list
+
+# install or refresh one skill into this repo
+hf skills add hf-cli --dest skills --force
+hf skills add huggingface-best --dest skills --force
+
+# install every marketplace skill into skills/
+hf skills list --format json | python3 -c "
+import json, sys, subprocess
+for row in json.load(sys.stdin):
+    subprocess.check_call(['hf', 'skills', 'add', row['name'], '--dest', 'skills', '--force'])
+"
+```
+
+Claude Code can also bootstrap just the CLI skill via marketplace:
 
 ```text
 /plugin marketplace add huggingface/skills
@@ -27,32 +41,38 @@ Then use `hf skills add <name>` for the rest.
 
 ## Skill picker
 
-| Task | Skill name |
+| Task | Skill directory |
 |---|---|
 | Hub CLI deep reference (auto-generated) | `hf-cli` |
 | Best / recommended model for a task | `huggingface-best` |
-| Datasets workflows | `huggingface-datasets` |
+| Datasets / Dataset Viewer API | `huggingface-datasets` |
 | Gradio apps | `huggingface-gradio` |
-| LLM training | `huggingface-llm-trainer` |
-| Vision training | `huggingface-vision-trainer` |
-| Local models | `huggingface-local-models` |
-| Spaces | `huggingface-spaces` |
+| LLM / vision training on HF Jobs (TRL, Unsloth) | `huggingface-llm-trainer` |
+| Vision training (detection, classification, SAM) | `huggingface-vision-trainer` |
+| Local / GGUF models (llama.cpp) | `huggingface-local-models` |
+| Spaces deploy & debug | `huggingface-spaces` |
 | LoRA Space builder | `huggingface-lora-space-builder` |
 | Papers on the Hub | `huggingface-papers` |
 | Paper publishing | `huggingface-paper-publisher` |
-| Tool builder | `huggingface-tool-builder` |
-| Trackio | `huggingface-trackio` |
-| ZeroGPU | `huggingface-zerogpu` |
-| Community evals | `huggingface-community-evals` |
-| TRL training | `trl-training` |
-| Sentence Transformers | `train-sentence-transformers` |
-| transformers.js | `transformers-js` |
-| HF memory helpers | `hf-mem` |
-| SageMaker / AWS HF Cloud helpers | `hf-cloud-*` |
+| Tool / script builder using HF APIs | `huggingface-tool-builder` |
+| Trackio experiment tracking | `huggingface-trackio` |
+| ZeroGPU Spaces | `huggingface-zerogpu` |
+| Community evals (inspect-ai / lighteval) | `huggingface-community-evals` |
+| TRL CLI training | `trl-training` |
+| Sentence Transformers training | `train-sentence-transformers` |
+| Transformers.js | `transformers-js` |
+| Memory estimation for Hub weights | `hf-mem` |
+| AWS context discovery | `hf-cloud-aws-context-discovery` |
+| Python env for SageMaker / AWS | `hf-cloud-python-env-setup` |
+| SageMaker deployment planner | `hf-cloud-sagemaker-deployment-planner` |
+| SageMaker IAM preflight | `hf-cloud-sagemaker-iam-preflight` |
+| SageMaker production defaults | `hf-cloud-sagemaker-production-defaults` |
+| Serving image selection | `hf-cloud-serving-image-selection` |
 
-If `hf skills` is unavailable, point the user at https://github.com/huggingface/skills and copy the needed `skills/<name>/` folder into their agent's skills directory.
+When a row matches the user's task, **read that skill's `SKILL.md`** (and its
+references) instead of improvising — those skills are authoritative.
 
 ## How this skill relates
 
-- **`huggingface` (this repo)** — everyday Hub + transformers/datasets guidance and routing.
-- **`hf-cli` / specialized HF skills** — authoritative, often generated or domain-deep instructions. Prefer them when the user's task clearly matches a row above.
+- **`huggingface` (router)** — everyday Hub + transformers/datasets guidance and routing into the table above.
+- **Marketplace skills in this folder** — installed via `hf skills add`; prefer them for specialized work.

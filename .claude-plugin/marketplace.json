@@ -40,8 +40,7 @@
         "./skills/web-artifacts-builder",
         "./skills/webapp-testing"
       ]
-    }
-    ,
+    },
     {
       "name": "claude-api",
       "description": "Claude API and SDK documentation skill for building LLM-powered applications",
@@ -76,6 +75,39 @@
       "strict": false,
       "skills": [
         "./skills/huggingface"
+      ]
+    },
+    {
+      "name": "huggingface-skills",
+      "description": "Official Hugging Face marketplace skills installed via `hf skills add` (Hub CLI, training, Spaces, datasets, Gradio, SageMaker helpers, and more)",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skills/hf-cli",
+        "./skills/hf-cloud-aws-context-discovery",
+        "./skills/hf-cloud-python-env-setup",
+        "./skills/hf-cloud-sagemaker-deployment-planner",
+        "./skills/hf-cloud-sagemaker-iam-preflight",
+        "./skills/hf-cloud-sagemaker-production-defaults",
+        "./skills/hf-cloud-serving-image-selection",
+        "./skills/hf-mem",
+        "./skills/huggingface-best",
+        "./skills/huggingface-community-evals",
+        "./skills/huggingface-datasets",
+        "./skills/huggingface-gradio",
+        "./skills/huggingface-llm-trainer",
+        "./skills/huggingface-local-models",
+        "./skills/huggingface-lora-space-builder",
+        "./skills/huggingface-paper-publisher",
+        "./skills/huggingface-papers",
+        "./skills/huggingface-spaces",
+        "./skills/huggingface-tool-builder",
+        "./skills/huggingface-trackio",
+        "./skills/huggingface-vision-trainer",
+        "./skills/huggingface-zerogpu",
+        "./skills/train-sentence-transformers",
+        "./skills/transformers-js",
+        "./skills/trl-training"
       ]
     }
   ]
