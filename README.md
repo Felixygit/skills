@@ -93,4 +93,5 @@ The markdown content below contains the instructions, examples, and guidelines t
 
 Skills are a great way to teach Claude how to get better at using specific pieces of software. As we see awesome example skills from partners, we may highlight some of them here:
 
+- **Hugging Face** - [Hugging Face Skills](https://github.com/huggingface/skills) (Apache-2.0). Official marketplace skills are vendored under [`skills/`](./skills) (install/refresh with `hf skills add <name> --dest skills --force`) and exposed as the `huggingface-skills` plugin. A [`huggingface`](./skills/huggingface) router skill covers everyday Hub + transformers workflows and points at those specialized skills.
 - **Notion** - [Notion Skills for Claude](https://www.notion.so/notiondevs/Notion-Skills-for-Claude-28da4445d27180c7af1df7d8615723d0)
